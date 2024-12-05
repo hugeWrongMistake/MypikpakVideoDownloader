@@ -1,8 +1,11 @@
 // ==UserScript==
 // @name         Mypikpak Video Download
-// @namespace    https://github.com/hugeWrongMistake/MypikpakVideoDownloader
-// @version      2024-12-04
-// @description  try to take over the world!
+// @name:zh      Mypikpak视频下载器
+// @namespace    https://github.com/hugeWrongMistake/MypikpakVideoDownloader_direct
+// @author       hugeWrongMistake
+// @version      2024-12-05
+// @description  A Tampermonkey scrpit for downloading videos from mypikpak.
+// @description:zh 从Mypikpak下载视频的Tampermonkey脚本
 // @match        https://mypikpak.com/s/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=mypikpak.com
 // @grant        GM_registerMenuCommand
@@ -17,7 +20,7 @@
         const ele = document.getElementsByClassName("title")[0];
         if(!ele)
         {
-            alert("Cant find video's file name");
+            alert("Cant find video name");
             return "download.mp4";
         }
         else{return ele.innerText;}
