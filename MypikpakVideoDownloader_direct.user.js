@@ -3,7 +3,7 @@
 // @name:zh      Mypikpak视频下载器
 // @namespace    https://github.com/hugeWrongMistake/MypikpakVideoDownloader_direct
 // @author       hugeWrongMistake
-// @version      2024-12-05
+// @version      2026-04-14
 // @description  A Tampermonkey scrpit for downloading videos from mypikpak.
 // @description:zh 从Mypikpak下载视频的Tampermonkey脚本
 // @match        https://mypikpak.com/s/*
@@ -12,12 +12,15 @@
 // @grant        GM_addElement
 // @grant        GM_download
 // @connect      localhost
+// @downloadURL https://update.greasyfork.org/scripts/519817/Mypikpak%20Video%20Download.user.js
+// @updateURL https://update.greasyfork.org/scripts/519817/Mypikpak%20Video%20Download.meta.js
 // ==/UserScript==
 
 (function() {
     'use strict';
     function getVideoFilename(){
-        const ele = document.getElementsByClassName("title")[0];
+        const arr = [...document.getElementsByClassName("title")];
+        const ele = arr.find((e)=>{return e.innerText.indexOf(".") != -1});
         if(!ele)
         {
             alert("Cant find video name");
@@ -44,8 +47,8 @@
     }
     const menu_command_id = GM_registerMenuCommand("Detect Videos",function(event){
         findVideos((url, name)=>{
-            if(name = prompt("Download? \n"+ url, name)){
-                GM_download(url, name);
+            if(name = prompt("Download? \n", name)){
+                GM_download({url, name, saveAs: true, onerror:(err)=>{console.error(err);}});
                 console.log("start download: "+name);
             }
         });
